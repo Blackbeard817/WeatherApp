@@ -2,32 +2,104 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/f32c9c8079.js"></script>
 	<title>Weather App</title>
 
+
+
+
+
 	<style>
-		
-		.clear {
-			background-color: #f1f1f1;
+
+		.text {
+			margin-top: 50px;
+		}
+
+		p {
+			font-size: 50;
+			color: red;
+			text-align: center;
+
 		}
 
 		.cloudy {
-			/*background-color: #333333;*/
+			color: yellow;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 100%;
+			background: url(https://images.unsplash.com/photo-1500740516770-92bd004b996e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80);
+		}
+
+		
+		
+		.clear {
+			color:white;
+			background:url(https://images.unsplash.com/photo-1579615009650-9f25b214c8e9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80);
+		}
+
+		.rain {
+			color:white;
+
 			background: url('https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2448&q=80');
 		}
 
+		.snow {
+			color:blue;
+			background:url(https://images.unsplash.com/photo-1542601098-8fc114e148e2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
+		}
+
 	</style>
+
+
+
+
+
+
+
+
 </head>
 <body id="body">
 
-	<h1 id="conditions"></h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				
 
-	<input type="text" placeholder="Zip Code" id="new-location">
-	<button id="change-location">Lookup</button>
+
+				<p>Weather App</p>
+
+
+
+
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="text col-sm-6">
+				<input type="text" placeholder="Zip Code" id="new-location">
+				<button id="change-location">Lookup</button>
+	
+			</div>
+
+			<div class="text col-sm-6">
+				<h1 id="conditions"></h1>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
 
 
 	<script>
 
-		getWeather(72758);
+		getWeather(72745);
 
 		document.getElementById("change-location").addEventListener('click', function() {
 			getWeather(document.getElementById("new-location").value);
@@ -51,8 +123,17 @@
 					document.getElementById('body').classList.add('clear');
 				}
 
+				if (response.weather[0].main == 'Rain') {
+					document.getElementById('body').classList.add('rain');
+
+				}
+
+				if (response.weather[0].main == 'Snow') {
+					document.getElementById('body').classList.add('snow');
+				}
+
 			});
-			oReq.open("GET", "https://api.openweathermap.org/data/2.5/weather?zip=" + zipcode +",us&appid={fbc44505c213b9fa30e57f621a82708b}&units=imperial");
+			oReq.open("GET", "https://api.openweathermap.org/data/2.5/weather?zip=" + zipcode +",us&appid=fbc44505c213b9fa30e57f621a82708b&units=imperial");
 			oReq.send();
 		}
 
